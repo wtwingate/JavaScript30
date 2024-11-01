@@ -19,9 +19,24 @@
     <input id="base" type="color" name="base" value="#ffc600">
   </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  <img src="ross-sokolovski-kCZSzqvIei4-unsplash.jpg">
 
   <style>
+    :root {
+      --spacing: 10px;
+      --blur: 10px;
+      --base: #ffc600;
+    }
+
+    .hl {
+      color: var(--base);
+    }
+
+    img {
+      padding: var(--spacing);
+      filter: blur(var(--blur));
+      background-color: var(--base);
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -46,6 +61,23 @@
   </style>
 
   <script>
+    function updateVar() {
+      const root = document.querySelector(":root");
+      const varName = "--" + this.name;
+      const varValue = this.value;
+      const varSize = this.dataset.sizing || "";
+
+      console.log(`${varName}: ${varValue}${varSize}`);
+
+      root.style.setProperty(varName, varValue + varSize);
+    }
+
+    const inputs = document.querySelectorAll("input");
+
+    for (const input of inputs) {
+      input.addEventListener("change", updateVar);
+      input.addEventListener("mousemove", updateVar);
+    }
   </script>
 
 </body>
