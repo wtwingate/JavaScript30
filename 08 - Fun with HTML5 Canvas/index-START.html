@@ -1,20 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>HTML5 Canvas</title>
-  <link rel="icon" href="https://fav.farm/🔥" />
-</head>
-<body>
-<canvas id="draw" width="800" height="800"></canvas>
-<script>
-</script>
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML5 Canvas</title>
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body>
+    <canvas id="draw" width="800" height="800"></canvas>
+    <script>
+      const canvas = document.querySelector("canvas#draw");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
-<style>
-  html, body {
-    margin: 0;
-  }
-</style>
+      const ctx = canvas.getContext("2d");
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
 
-</body>
+      let lastX = 0;
+      let lastY = 0;
+
+      let isMouseDown = false;
+      canvas.addEventListener("mousedown", (e) => {
+        isMouseDown = true;
+        lastX = e.offsetX;
+        lastY = e.offsetY;
+      });
+      canvas.addEventListener("mouseup", () => (isMouseDown = false));
+      canvas.addEventListener("mouseout", () => (isMouseDown = false));
+      canvas.addEventListener("mousemove", draw);
+
+      function draw(e) {
+        if (!isMouseDown) return;
+
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.lineWidth = getLineWidth();
+        ctx.strokeStyle = getStrokeStyle();
+        ctx.stroke();
+
+        lastX = e.offsetX;
+        lastY = e.offsetY;
+      }
+
+      // Dynamically grow and shrink line width
+      let width = 5;
+      let widthDelta = 1;
+      function getLineWidth() {
+        if (width > 100 || width < 5) {
+          widthDelta = -widthDelta;
+        }
+
+        width += widthDelta;
+        return width;
+      }
+
+      // Dynamically cycle through the color spectrum
+      let hue = 0;
+      function getStrokeStyle() {
+        hslColor = `hsl(${hue}deg 100% 50%)`;
+        hue = hue == 360 ? 0 : hue + 1;
+
+        return hslColor;
+      }
+    </script>
+
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+    </style>
+  </body>
 </html>
