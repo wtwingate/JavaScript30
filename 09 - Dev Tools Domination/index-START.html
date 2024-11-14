@@ -1,47 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Console Tricks!</title>
-  <link rel="icon" href="https://fav.farm/🔥" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Console Tricks!</title>
+    <link rel="icon" href="https://fav.farm/🔥" />
+    <style>
+      h1 {
+        text-transform: uppercase;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 60px;
+        font-weight: bold;
+        text-shadow: 4px 4px 0px red, 8px 8px 0px orange, 12px 12px 0px yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Console Tricks!!!</h1>
 
-  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+    <p onClick="makeGreen()">×BREAK×DOWN×</p>
 
-  <script>
-    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+    <script>
+      const dogs = [
+        { name: "Snickers", age: 2 },
+        { name: "Hugo", age: 8 },
+      ];
 
-    function makeGreen() {
-      const p = document.querySelector('p');
-      p.style.color = '#BADA55';
-      p.style.fontSize = '50px';
-    }
+      function makeGreen() {
+        const p = document.querySelector("p");
+        p.style.color = "#BADA55";
+        p.style.fontSize = "50px";
+      }
 
-    // Regular
+      // Regular
+      console.log("Hello, world!");
 
-    // Interpolated
+      // Interpolated
+      console.log("I am a %s string", "💩");
 
-    // Styled
+      // Styled
+      console.log("%c I am some big text", "font-size: 24px");
 
-    // warning!
+      // warning!
+      console.warn("Danger, Will Robinson! Danger!");
 
-    // Error :|
+      // Error :|
+      console.error("Dangit!");
 
-    // Info
+      // Info
+      console.info("Ducks have mastered land, sea, and air! Wow!");
 
-    // Testing
+      // Testing
+      console.assert(true === false, "That's wrong!");
 
-    // clearing
+      // clearing
+      // console.clear();
 
-    // Viewing DOM Elements
+      // Viewing DOM Elements
+      const heading = document.querySelector("h1");
+      console.log(heading);
+      console.dir(heading);
 
-    // Grouping together
+      // Grouping together
+      dogs.forEach((dog) => {
+        console.groupCollapsed(`${dog.name}`);
+        console.log(`This dog's name is ${dog.name}`);
+        console.log(`They are ${dog.age} years old`);
+        console.log(`That's ${dog.age * 7} in dog years`);
+        console.groupEnd(`${dog.name}`);
+      });
 
-    // counting
+      // counting
+      console.count("Will");
+      console.count("Will");
+      console.count("Will");
+      console.count("Steve");
+      console.count("Steve");
+      console.count("Steve");
+      console.count("Will");
+      console.count("Will");
+      console.count("Steve");
+      console.count("Will");
 
-    // timing
-
-  </script>
-</body>
+      // timing
+      console.time("fetching data");
+      fetch("https://api.github.com/users/wtwingate")
+        .then((data) => data.json())
+        .then((data) => {
+          console.timeEnd("fetching data");
+          console.log(data);
+        });
+    </script>
+  </body>
 </html>
