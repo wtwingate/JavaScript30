@@ -7,6 +7,27 @@
     <link rel="icon" href="https://fav.farm/🔥" />
   </head>
   <body>
-    <script></script>
+    <script>
+      let pressed = [];
+      const secretCode = "quack";
+
+      addEventListener("keydown", (e) => {
+        pressed.push(e.key);
+
+        // modifies array in place
+        // pressed.splice(-pressed.length, pressed.length - secretCode.length);
+
+        // replaces with new array
+        if (pressed.length > secretCode.length) {
+          pressed = pressed.slice(1);
+        }
+
+        console.log(pressed);
+
+        if (pressed.join("") == secretCode) {
+          cornify_add();
+        }
+      });
+    </script>
   </body>
 </html>
